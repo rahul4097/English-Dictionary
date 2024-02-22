@@ -1,50 +1,47 @@
-var url="https://api.dictionaryapi.dev/api/v2/entries/en/"
-
-var input=document.querySelector('.search');
-var speech1=document.querySelector('.speech1')
-var speech2= document.querySelector('.speech2')
-var meaning=document.querySelector('.meaning1')
-var meaning2=document.querySelector('.meaning2')
-var example1= document.querySelector('.example1')
-var example2= document.querySelector('.example2')
-var partsSpeech1= document.querySelector('.parts-of-speech1')
-var partsSpeech2= document.querySelector('.parts-of-speech2')
 
 
-async function check(word) {
-	const response = await fetch(url + word );
-	if(response.status==404){
-		document.querySelector('.defination-background').style.display='none'
-		document.querySelector('.error').style.display='block'
+let searchInput = document.getElementById("searchInput");
+let searchBtn = document.getElementById("searchBtn");
 
-	}
-	else{
-		const result = await response.json();
-		document.querySelector('.defination-background').style.display='block'
-		console.log(result);
-	
-		meaning.innerHTML=result[0].meanings[0].definitions[0].definition;
-		example1.innerHTML=result[0].meanings[0].definitions[0].example;
-		partsSpeech1.innerHTML=result[0].meanings[0].partOfSpeech
+ 
+ const getData = async (searchValue) => {
 
-		meaning2.innerHTML=result[0].meanings[1].definitions[0].definition;
-		example2.innerHTML=result[0].meanings[1].definitions[0].example;
-		partsSpeech2.innerHTML=result[0].meanings[1].partOfSpeech
-
-		document.querySelector('.error').style.display='none'
-
-	}
-} 
-document.querySelector('.defination-background').style.display='none'
-document.querySelector('.error').style.display='none'
-
-
-document.querySelector('.search-icon').addEventListener('click',()=>{
-	check(input.value);
-})
-document.querySelector('input').addEventListener('keypress' ,(e)=>{
-    if(e.key==='Enter'){
-	check(input.value);
-    document.querySelector('.search').click();
+    try{
+        let data = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchValue}`);
+        let jsonData =await data.json();
+        console.log(jsonData);
+    
+        document.querySelector(".text").innerHTML="";
+        let div = document.createElement("div");
+        div.classList.add("details");
+        div.innerHTML=`
+        <h2 id="word">Word : <span>${jsonData[0].word} </span></h2>
+        <p id="type" ><span>${jsonData[0].meanings[0].partOfSpeech} </span></p>
+        <p>Meaning : <span>${jsonData[0].meanings[0].definitions[0].definition}</span></p>
+        <p>Example : <span>${jsonData[0].meanings[0].definitions[0].example === undefined ? "Not Found" : jsonData[0].meanings[0].definitions[0].example}</span></p>
+        <p>Synonyms : <span> ${jsonData[0].meanings[0].synonyms[0] === undefined ? "Not Found" : jsonData[0].meanings[0].synonyms[0]}</span></p>
+        <a href=${jsonData[0].sourceUrls } target="_blank" >Read More</a>
+        `
+        document.querySelector(".text").appendChild(div);
     }
-});
+    catch(error){
+        document.querySelector(".text").innerHTML="<h1>Not Found</h1>"
+    }
+
+ 
+ }
+
+searchInput.addEventListener('keypress' ,(e)=>{
+	    if(e.key==='Enter'){
+		getData(searchInput.value);
+	    }
+	});
+
+searchBtn.addEventListener("click", function(){
+    let searchValue = searchInput.value;
+    if(searchValue == ""){
+        alert("First Enter Something")
+    }else{
+        getData(searchValue)
+    }
+ })

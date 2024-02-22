@@ -1,45 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> English Dictionary</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/fa0bb17cde.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Dictionary</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/fa0bb17cde.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav>
+      <h1>Dictionary App</h1>
+  </nav>
+  <div class="container">
+       <div class="searchBar">
+          <input type="text" placeholder="Enter Here." id="searchInput">
+          <button id="searchBtn">Search</button>
 
-</head>
-<body>
-    <div class="dictionary-background">
-        <h1>English Dictionary</h1>
-        <div class="input-box">
-            <h3>Search your word here!</h3>
-            <p><input class="search"type="text" placeholder="search any word"><i class="fa-solid fa-magnifying-glass search-icon"></i></p>
-            <h2 class="error">worng word! try with correct speling</h2>
+       </div>
+       <div class="text">         
 
-        </div>
-            <div class="defination-background">
-                <h2>Result</h2>
-                <h3 class="speech1">Meaning -1</h3>
-                <p class="meaning1"></p>
-
-                <h4>Exmple</h4>
-                <p class="example1"></p>
-
-                <p class="parts-speech">Parts of Speech :</p> <span class="parts-of-speech1"></span>
-                <!-- <p class="parts-of-speech1"></p> -->
-
-                <h3 class="speech2">Meaning -2</h3>
-                <p class="meaning2"></p>
-           
-
-                <h4>Exmple</h4>
-                <p class="example2"></p>
-
-                <p class="parts-speech">Parts of Speech :</p>  <span class="parts-of-speech2"></span>
-                <!-- <p class="parts-of-speech2"></p> -->
-            </div>      
-    </div>
+       </div>
+  </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
